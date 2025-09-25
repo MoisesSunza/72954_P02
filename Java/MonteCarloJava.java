@@ -1,5 +1,37 @@
-public class MonteCarloJava{
+import java.util.Random;
+
+public class MonteCarloJava {
+
     public static void main(String[] args) {
-        System.out.println("Adios Mundo");
+        int totalSamples = 1000000;
+        int circulo = 0;
+
+        Random random = new Random();
+
+        // Tiempo de inicio
+        long tiempoInicio = System.currentTimeMillis();
+
+        // Generar puntos y contar los que caen dentro del círculo
+        for (int i = 0; i < totalSamples; i++) {
+            double x = random.nextDouble(); // número en [0,1)
+            double y = random.nextDouble(); // número en [0,1)
+
+            if (x * x + y * y <= 1.0) {
+                circulo++;
+            }
+        }
+
+        // Tiempo de fin
+        long tiempoFinal = System.currentTimeMillis();
+
+        // Aproximación de pi
+        double piApprox = 4.0 * circulo / totalSamples;
+
+        // Mostrar resultados
+        System.out.println("Número total de puntos: " + totalSamples);
+        System.out.println("Puntos dentro del círculo: " + circulo);
+        System.out.println("Aproximación de pi: " + piApprox);
+        System.out.println("Error: " + Math.abs(piApprox - Math.PI));
+        System.out.println("Tiempo total de cálculo: " + (tiempoFinal - tiempoInicio) + " ms");
     }
 }
