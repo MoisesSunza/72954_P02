@@ -8,10 +8,8 @@ public class MonteCarloJava {
 
         Random random = new Random();
 
-        // Tiempo de inicio
         long tiempoInicio = System.currentTimeMillis();
 
-        // Generar puntos y contar los que caen dentro del círculo
         for (int i = 0; i < totalSamples; i++) {
             double x = random.nextDouble(); // número en [0,1)
             double y = random.nextDouble(); // número en [0,1)
@@ -21,13 +19,10 @@ public class MonteCarloJava {
             }
         }
 
-        // Tiempo de fin
         long tiempoFinal = System.currentTimeMillis();
 
-        // Aproximación de pi
         double piApprox = 4.0 * circulo / totalSamples;
 
-        // Mostrar resultados
         System.out.println("Número total de puntos: " + totalSamples);
         System.out.println("Puntos dentro del círculo: " + circulo);
         System.out.println("Aproximación de pi: " + piApprox);

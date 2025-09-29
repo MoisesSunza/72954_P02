@@ -2,12 +2,9 @@ import java.util.Random;
 
 public class MonteCarloHilos {
 
-    // Variable compartida
     private static int globalCount = 0;
-    // Lock para sincronización
     private static final Object lock = new Object();
 
-    // Clase que representa la tarea de cada hilo
     static class Worker extends Thread {
         private final int numSamples;
         private final int threadId;
@@ -30,7 +27,6 @@ public class MonteCarloHilos {
                 }
             }
 
-            // Sección crítica: actualizar globalCount
             synchronized (lock) {
                 System.out.println("Hilo " + threadId + ": añadiendo " + localCount + " puntos al total.");
                 globalCount += localCount;
@@ -45,16 +41,13 @@ public class MonteCarloHilos {
 
         Thread[] threads = new Thread[numThreads];
 
-        // Tiempo de inicio
         long tiempoInicio = System.currentTimeMillis();
 
-        // Crear y lanzar los hilos
         for (int i = 0; i < numThreads; i++) {
             threads[i] = new Worker(samplesPerThread, i);
             threads[i].start();
         }
 
-        // Esperar a que todos los hilos terminen
         for (int i = 0; i < numThreads; i++) {
             try {
                 threads[i].join();
@@ -63,13 +56,10 @@ public class MonteCarloHilos {
             }
         }
 
-        // Tiempo de fin
         long tiempoFinal = System.currentTimeMillis();
 
-        // Calcular aproximación de pi
         double piApprox = 4.0 * globalCount / totalSamples;
 
-        // Mostrar resultados
         System.out.println("\nNúmero total de puntos: " + totalSamples);
         System.out.println("Puntos dentro del círculo: " + globalCount);
         System.out.println("Aproximación de pi: " + piApprox);
